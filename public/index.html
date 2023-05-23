@@ -83,51 +83,56 @@
       cursor: pointer;
     }
   </style>
-</head>
-<body>
-  <div class="container">
-    <h1 class="title">Focus Control</h1>
-    <div class="slider-container">
-      <h2 class="slider-title">Slider 1</h2>
-      <input type="range" class="slider" id="slider1" min="0" max="255" step="1">
+  
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="title">Focus Control</h1>
+      <div class="slider-container">
+        <h2 class="slider-title">Slider 1</h2>
+        <input type="range" class="slider" id="slider1" min="0" max="255" step="1">
+      </div>
+      <div class="slider-container">
+        <h2 class="slider-title">Slider 2</h2>
+        <input type="range" class="slider" id="slider2" min="0" max="255" step="1">
+      </div>
+      <div class="slider-container">
+        <h2 class="slider-title">Slider 3</h2>
+        <input type="range" class="slider" id="slider3" min="0" max="255" step="1">
+      </div>
+      <div class="button-container">
+        <button class="button" id="sendButton">Send Values to Arduino</button>
+      </div>
     </div>
-    <div class="slider-container">
-      <h2 class="slider-title">Slider 2</h2>
-      <input type="range" class="slider" id="slider2" min="0" max="255" step="1">
-    </div>
-    <div class="slider-container">
-      <h2 class="slider-title">Slider 3</h2>
-      <input type="range" class="slider" id="slider3" min="0" max="255" step="1">
-    </div>
-    <div class="button-container">
-      <button class="button" id="sendButton">Send Values to Arduino</button>
-    </div>
-  </div>
-
-  <script>
-    const slider1 = document.getElementById('slider1');
-    const slider2 = document.getElementById('slider2');
-    const slider3 = document.getElementById('slider3');
-    const sendButton = document.getElementById('sendButton');
-
-    sendButton.addEventListener('click', () => {
-      const value1 = slider1.value;
-      const value2 = slider2.value;
-      const value3 = slider3.value;
-
-      const url = `http://localhost:3000/setValues?value1=${value1}&value2=${value2}&value3=${value3}`;
-
-      fetch(url)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Failed to send values to Arduino.');
-          }
-          console.log('Values sent to Arduino successfully.');
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    });
-  </script>
-</body>
-</html>
+  
+    <script>
+      const slider1 = document.getElementById('slider1');
+      const slider2 = document.getElementById('slider2');
+      const slider3 = document.getElementById('slider3');
+      const sendButton = document.getElementById('sendButton');
+  
+      sendButton.addEventListener('click', () => {
+        const value1 = slider1.value;
+        const value2 = slider2.value;
+        const value3 = slider3.value;
+  
+        const url = `http://localhost:3000/setValues?value1=${value1}&value2=${value2}&value3=${value3}`;
+  
+        fetch(url)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Failed to send values to Arduino.');
+            }
+            console.log('Values sent to Arduino successfully.');
+            console.log(`Slider 1: ${value1}`);
+            console.log(`Slider 2: ${value2}`);
+            console.log(`Slider 3: ${value3}`);
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      });
+    </script>
+  </body>
+  </html>
+  
