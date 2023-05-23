@@ -33,6 +33,14 @@
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ value }),
+      })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to send data to server');
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
       });
     }
   </script>

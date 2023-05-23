@@ -3,8 +3,7 @@ const SerialPort = require('serialport');
 const Readline = require('@serialport/parser-readline');
 
 // Serial port configuration
-const port = new SerialPort('COM3', { baudRate: 9600 }); 
-// Replace with the actual serial port name
+const port = new SerialPort('COM3', { baudRate: 9600 }); // Replace with the actual serial port name
 const parser = port.pipe(new Readline({ delimiter: '\r\n' }));
 
 // Web server configuration
@@ -25,6 +24,12 @@ parser.on('data', (data) => {
 app.post('/slider', express.json(), (req, res) => {
   const { value } = req.body;
   console.log(`Slider value received: ${value}`);
-  port.write(value + '\n');
-  res.sendStatus(200);
+  port.write(value + '\n', (err) => {
+    if (err) {
+      console.error('Error writing to serial port:', err.message);
+      res.sendStatus(500);
+    } else {
+      res.sendStatus(200);
+    }
+  });
 });
