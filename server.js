@@ -1,9 +1,19 @@
 const express = require('express');
-const SerialPort = require('serialport');
-const Readline = require('@serialport/parser-readline');
+//const SerialPort = require('serialport').SerialPort;
+const Readline = require('@serialport/parser-readline').ReadlineParser;
+
+const { SerialPort } = require('serialport');
+
+
+// Create a port
+const port = new SerialPort({
+  path: 'COM3',
+  baudRate: 9600,
+});
 
 // Serial port configuration
-const port = new SerialPort('COM3', { baudRate: 9600 }); // Replace with the actual serial port name
+
+//const port = new SerialPort({path: 'COM3', baudRate: 9600 }); // Replace with the actual serial port name
 const parser = port.pipe(new Readline({ delimiter: '\r\n' }));
 
 // Web server configuration
