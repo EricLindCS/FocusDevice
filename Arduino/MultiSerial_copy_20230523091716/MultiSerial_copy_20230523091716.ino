@@ -26,6 +26,7 @@ void loop() {
     analogWrite(ledPin2, value2);
     analogWrite(ledPin3, value3);
 */
+
     Serial.print("Received values: ");
     Serial.print("Slider 1: ");
     Serial.print(value1);
