@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Arduino Slider Control</title>
+  <style>
+    .slider-container {
+      width: 300px;
+      margin: 0 auto;
+    }
+
+    #slider {
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="slider-container">
+    <input type="range" id="slider" min="0" max="255" step="1">
+  </div>
+
+  <script>
+    const slider = document.getElementById('slider');
+
+    slider.addEventListener('input', (event) => {
+      const value = event.target.value;
+      sendData(value);
+    });
+
+    function sendData(value) {
+      fetch('/slider', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ value }),
+      });
+    }
+  </script>
+</body>
+</html>
