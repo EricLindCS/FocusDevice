@@ -15,16 +15,21 @@ int timeis = millis();
 int enfinvt = 9;
 
 void callRand(){
+  lcd.setCursor(0, 1);
+  lcd.print("        ");
+  lcd.setCursor(0, 1);
  int ran = round(random(0,2) + 1);
  //int ran = 1;
   //Serial.println(ran); //remove before web interface connection
   if (ran == 1){
+    lcd.print("Active-A");
     Serial.println("sent to arm");
     digitalWrite(arm, HIGH);
     delay(300);
    digitalWrite(arm, LOW);
   }
   else if (ran == 2){
+    lcd.print("Active-R");
     Serial.println("sent to relay");
     digitalWrite(RELAY, HIGH);
     delay(300);
@@ -39,7 +44,7 @@ void callRand(){
 void setup()
 {
   lcd.begin(8, 2); 
-  lcd.print("FocDe1.0");
+  //lcd.print("FocDe1.0");
   
   pinMode(BUTTON_PIN, INPUT);
   pinMode(WARNLED,OUTPUT);
@@ -81,29 +86,23 @@ void loop()
   else if (isunp && temp - timeis > enfinvt){
     callRand();
     timeis = millis() / 1000;
-    lcd.setCursor(0,1);
-    lcd.print("        ");
   }
 
+  
   if(button_pressed){
-    lcd.print("Safe");
+    for(int o=0; o<8; o++){
+      lcd.setCursor(o, 1);
+      lcd.write(255);
+    }
   }
   else{
-    lcd.print("!!!");
-   
-    long a = (temp - timeis)*100/enfinvt;
-    if(a < 100){
-      lcd.setCursor(5,1);
+    lcd.setCursor(0, 1);
+    lcd.print("        ");
+    long a = (100-(temp - timeis)*100/enfinvt)/8;
+    for(int h=0; h<a;h++){
+      lcd.setCursor(h, 1);
+      lcd.write(255);
     }
-    else {
-      lcd.setCursor(4,1);
-    }
-     lcd.print(a);
-
-
-    lcd.setCursor(7,1);
-     lcd.print("% ");
-     //lcd.write(255);
   }
 
 
