@@ -19,7 +19,7 @@ LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 bool isunp = false;
 int timeis = millis();
 
-int enfinvt = 13;
+int enfinvt = 10;
 
 void callRand(){
  int ran = round(random(0,3) + 1);
@@ -36,13 +36,13 @@ void callRand(){
    digitalWrite(arm, LOW);
   }
   else if (ran == 2){
-    lcd.print("EN-R");
+    lcd.print("EN-T");
     digitalWrite(TASER, HIGH);
     delay(300);
     digitalWrite(TASER, LOW);
   }
   else if(ran==3){
-    lcd.print("Active-S");
+    lcd.print("EN-A");
     Serial.println("sent to strobe");
     digitalWrite(STROBE, HIGH);
     delay(300);
@@ -130,6 +130,12 @@ void loop()
     lcd.print("%");
   }
 
+  if (Serial.available() > 0) {
+    int receivedValue = Serial.parseInt(); // Read the incoming integer
+
+    // Perform action based on the received value
+    enfinvt = receivedValue;
+  }
 
   delay(DELAY);
 }

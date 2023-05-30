@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Serial Communication</title>
+  <script>
+    var serialPort;
+
+    function connect() {
+      serialport = new SerialPort({
+       path: 'COM3',
+        baudRate: 9600,
+      });
+      //serialPort = new SerialPort("COM1", { baudRate: 9600 }); // Change "COM1" to your Arduino's serial port
+
+      serialPort.on('open', function() {
+        console.log('Serial Port Connected');
+      });
+
+      serialPort.on('error', function(err) {
+        console.error('Serial Port Error:', err.message);
+      });
+    }
+
+    function sendInteger() {
+      var integer = document.getElementById("integerInput").value;
+      serialPort.write(integer);
+    }
+  </script>
+</head>
+<body>
+  <button onclick="connect()">Connect to Arduino</button>
+  <input type="number" id="integerInput" placeholder="Enter an integer">
+  <button onclick="sendInteger()">Send Integer</button>
+</body>
+</html>
