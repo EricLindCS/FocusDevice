@@ -1,7 +1,8 @@
 #define BUTTON_PIN        2  // Button
 #define DELAY            200  // Delay per loop in ms
-#define RELAY 7
-#define WARN_LED 8;
+#define RELAY 3
+#define WARN_LED 8
+#define arm 5
 
 bool isunp = false;
 int timeis = millis();
@@ -14,9 +15,9 @@ void callRand(){
   //Serial.println(ran); //remove before web interface connection
   if (ran == 1){
     Serial.println("sent to arm");
-    //digitalWrite(arm, HIGH);
+    digitalWrite(arm, HIGH);
     delay(300);
-   // digitalWrite(arm, LOW);
+   digitalWrite(arm, LOW);
   }
   else if (ran == 2){
     Serial.println("sent to relay");
@@ -35,6 +36,8 @@ void setup()
   pinMode(BUTTON_PIN, INPUT);
   pinMode(8,OUTPUT);
   pinMode(7,OUTPUT);
+  pinMode(arm, OUTPUT);
+  pinMode(RELAY, OUTPUT);
   digitalWrite(BUTTON_PIN, HIGH); // pull-up
   Serial.begin(9600);
 }
