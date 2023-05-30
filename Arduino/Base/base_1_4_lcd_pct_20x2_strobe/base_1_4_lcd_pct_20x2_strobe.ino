@@ -5,26 +5,26 @@
 // initialize the library by associating any needed LCD interface pin
 // with the arduino pin number it is connected to
 const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
-LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);D
 
 
 #define BUTTON_PIN        6  // Button
 #define DELAY            200  // Delay per loop in ms
 #define TASER 9
 #define WARNLED 8
-#define arm 9
+#define arm 7
 #define ACTLED 10
 #define STROBE 14
 
 bool isunp = false;
 int timeis = millis();
 
-int enfinvt = 3;
+int enfinvt = 5;
 
 void callRand(){
- //int ran = round(random(0,3) + 1);
- int ran = 3;
-  //Serial.println(ran); //remove before web interface connection
+int ran = round(random(0,3) + 1);
+ //int ran = 2;
+ // Serial.println(ran); //remove before web interface connection
   lcd.setCursor(0,1);
   lcd.print("                ");
   lcd.setCursor(0,1);
