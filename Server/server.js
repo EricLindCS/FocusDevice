@@ -1,5 +1,4 @@
 
-
 const express = require('express');
 const SerialPort = require('serialport').ReadlineParser;
 
@@ -11,14 +10,20 @@ const arduinoPort = new SerialPort({
     baudRate: 9600,
 });
 
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.get('/', (req, res) => {
-  res.send('Web Interface');
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.get('/send/:value', (req, res) => {
   const value = parseInt(req.params.value);
 
-  // Send the value to the Arduino over the serial connection
+  if (Number.isNaN(value)) {
+    res.status(400).send('Invalid value');
+    return;
+  }
+
   arduinoPort.write(value.toString(), (err) => {
     if (err) {
       console.error('Error sending data:', err);
@@ -33,3 +38,15 @@ app.get('/send/:value', (req, res) => {
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
+
+
+
+
+
+
+
+
+
+
+
+

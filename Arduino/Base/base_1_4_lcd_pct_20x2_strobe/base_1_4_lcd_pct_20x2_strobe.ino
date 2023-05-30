@@ -10,7 +10,7 @@ LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
 #define BUTTON_PIN        6  // Button
 #define DELAY            200  // Delay per loop in ms
-#define TASER 7
+#define TASER 9
 #define WARNLED 8
 #define arm 9
 #define ACTLED 10
@@ -19,11 +19,11 @@ LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 bool isunp = false;
 int timeis = millis();
 
-int enfinvt = 10;
+int enfinvt = 3;
 
 void callRand(){
- int ran = round(random(0,3) + 1);
- //int ran = 1;
+ //int ran = round(random(0,3) + 1);
+ int ran = 3;
   //Serial.println(ran); //remove before web interface connection
   lcd.setCursor(0,1);
   lcd.print("                ");
@@ -44,14 +44,14 @@ void callRand(){
   else if(ran==3){
     lcd.print("EN-A");
     Serial.println("sent to strobe");
-    digitalWrite(STROBE, HIGH);
-    delay(300);
     digitalWrite(STROBE, LOW);
+    delay(300);
   }
   else {
     
   }
   delay(9000);
+  digitalWrite(STROBE, HIGH);
   lcd.setCursor(0,1);
   lcd.print("                     ");
 
@@ -72,6 +72,7 @@ void setup()
   pinMode(STROBE, OUTPUT);
   digitalWrite(BUTTON_PIN, HIGH); // pull-up
   Serial.begin(9600);
+  digitalWrite(STROBE, HIGH);
 }
 
 boolean handle_button()
@@ -82,9 +83,9 @@ boolean handle_button()
 
 void loop()
 {
-  
+  //Serial.print("a");
   lcd.setCursor(0,1);
-   lcd.print("                     ");
+  lcd.print("                     ");
   lcd.setCursor(0,1);
   lcd.print("Status:");
   boolean button_pressed = handle_button();
