@@ -55,7 +55,7 @@ void callRand(){
   else if (ran == 2){
     Serial.println("sent to relay");
     digitalWrite(RELAY, HIGH);
-    delay(30);
+    delay(300);
     digitalWrite(RELAY, LOW);
   }
   else {
