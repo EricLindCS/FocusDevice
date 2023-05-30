@@ -18,7 +18,7 @@ LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 bool isunp = false;
 int timeis = millis();
 
-int enfinvt = 9;
+int enfinvt = 13;
 
 void callRand(){
  int ran = round(random(0,2) + 1);
